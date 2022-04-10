@@ -1,6 +1,7 @@
 import React from "react";
 import App from "./App";
 import { createRoot } from "react-dom/client";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./Index.css";
 
 const container = document.getElementById("root");
