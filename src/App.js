@@ -1,13 +1,13 @@
 import React from "react";
 import Navbar from "./Components/Navbar/Navbar";
-import Pages from "./Pages/Pages";
+import Login from "./Pages/Login/Login";
 
 const App = () => {
 	return (
-		<>
+		<div className='appContainer'>
 			<Navbar />
-			<Pages />
-		</>
+			<Login />
+		</div>
 	);
 };
 export default App;
