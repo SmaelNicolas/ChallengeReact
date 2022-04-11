@@ -1,36 +1,26 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Form, Button } from "react-bootstrap";
+import makePost from "../../Helpers/postForm";
+// import axios from "axios";
 
 const FormLogin = () => {
-	const [pw, setPw] = useState("");
-	const [emailInput, setEmail] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPw] = useState("");
+	const [valid, setValid] = useState(undefined);
 
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
-		let body = new FormData();
-
-		body.append("email", emailInput);
-		body.append("password", pw);
-
-		axios({
-			method: "post",
-			url: "http://challenge-react.alkemy.org/",
-			data: body,
-			headers: { "Content-Type": "multipart/form-data" },
-		})
-			.then(function (response) {
-				//handle success
-				console.log(response);
-			})
-			.catch(function (response) {
-				//handle error
-				console.log(response);
-			});
+		setValid(
+			await makePost(
+				email,
+				password,
+				"http://challenge-react.alkemy.org/"
+			)
+		);
 	};
 
 	return (
-		<Form>
+		<Form onSubmit={(e) => onSubmit(e)}>
 			<Form.Group className='mb-3' controlId='formBasicEmail'>
 				<Form.Label>Email address</Form.Label>
 				<Form.Control
@@ -58,11 +48,7 @@ const FormLogin = () => {
 				/>
 			</Form.Group>
 
-			<Button
-				variant='primary'
-				type='submit'
-				onClick={(e) => onSubmit(e)}
-			>
+			<Button variant='primary' type='submit'>
 				Submit
 			</Button>
 		</Form>
