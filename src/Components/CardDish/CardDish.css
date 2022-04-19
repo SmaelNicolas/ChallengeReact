@@ -1,0 +1,16 @@
+.cardDish {
+	width: 18rem;
+	margin: 10px 0;
+}
+
+.cardDescription {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	width: 18rem;
+}
+
+.cardButton {
+	margin-left: 10px;
+}

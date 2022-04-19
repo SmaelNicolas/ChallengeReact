@@ -1,16 +1,28 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import "./CardDish.css";
 
-const CardDish = ({ title, img, desc }) => {
+const CardDish = ({ key, title, img, desc, add }) => {
 	return (
-		<Card style={{ width: "18rem" }}>
+		<Card className='cardDish' key={key}>
 			<Card.Title variant='top'>{title}</Card.Title>
 			<Card.Img src={img} />
 			<Card.Body>
-				<Card.Text>{desc}</Card.Text>
-				<Button variant='info'>Details</Button>
-				<Button variant='danger'>Delete</Button>
+				<Card.Text className='cardDescription'>{desc}</Card.Text>
+				<Button className='cardButton' variant='info'>
+					Details
+				</Button>
+				{!add && (
+					<Button className='cardButton' variant='danger'>
+						Delete
+					</Button>
+				)}
+				{add && (
+					<Button className='cardButton' variant='success'>
+						Add
+					</Button>
+				)}
 			</Card.Body>
 		</Card>
 	);
