@@ -10,28 +10,32 @@ export const MenuProvider = (props) => {
 	};
 
 	const addRecipe = (recipe) => {
-		setMenu([...recipe]);
+		menu.push(recipe);
+		setMenu(menu);
+	};
+
+	const deleteRecipe = (recipe) => {
+		menu.splice(menu.indexOf(recipe), 1);
+		setMenu(menu);
 	};
 
 	const averageTotalPriceMenu = () => {
 		return menu.length > 0
-			? menu.reduce((total, recipe) => total + recipe.price, 0) /
-					menu.length +
-					1
+			? menu.reduce((total, recipe) => total + recipe.price, 0)
 			: 0;
 	};
 
 	const averageTotalTimePreparation = () => {
 		return menu.length > 0
 			? menu.reduce((total, recipe) => total + recipe.time, 0) /
-					(menu.length + 1)
+					menu.length
 			: null;
 	};
 
 	const averageTotalHealthScore = () => {
 		return menu.length > 0
 			? menu.reduce((total, recipe) => total + recipe.helthScore, 0) /
-					(menu.length + 1)
+					menu.length
 			: null;
 	};
 
@@ -45,14 +49,18 @@ export const MenuProvider = (props) => {
 
 	const canAddVegan = () => {
 		let totalVegan = 0;
-		menu.map((recipe) => (recipe.vegan ? totalVegan++ : null));
-		return totalVegan < 2;
+		menu.map((recipe) =>
+			recipe.vegan ? (totalVegan = totalVegan + 1) : null
+		);
+		return totalVegan;
 	};
 
 	const canAddNoVegan = () => {
 		let totalNoVegan = 0;
-		menu.map((recipe) => (recipe.vegan ? null : totalNoVegan++));
-		return totalNoVegan < 2;
+		menu.map((recipe) =>
+			recipe.vegan ? null : (totalNoVegan = totalNoVegan + 1)
+		);
+		return totalNoVegan;
 	};
 
 	return (
@@ -60,6 +68,7 @@ export const MenuProvider = (props) => {
 			value={{
 				getMenu,
 				addRecipe,
+				deleteRecipe,
 				averageTotalPriceMenu,
 				averageTotalTimePreparation,
 				averageTotalHealthScore,
