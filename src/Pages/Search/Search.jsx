@@ -12,6 +12,9 @@ import info from "../../Data/DataCopiada";
 
 const Search = () => {
 	const [recipes, setRecipes] = useState(undefined);
+	const [list, setList] = useState(true);
+
+	// const [completeRecipes, setCompleteRecipes] = useState([]);
 	const [completeRecipes, setCompleteRecipes] = useState(info);
 
 	const SignupSchema = Yup.object().shape({
@@ -24,12 +27,16 @@ const Search = () => {
 	const addRecipes = (value) => {
 		setRecipes(value);
 	};
-	const addCompleteRecipe = (value) => {
-		setCompleteRecipes(value);
+	const addCompleteRecipe = async (value) => {
+		await setCompleteRecipes(value);
+	};
+
+	const showList = () => {
+		setList(true);
 	};
 
 	useEffect(() => {
-		// createCompleteRecipe(recipes, addCompleteRecipe);
+		createCompleteRecipe(recipes, addCompleteRecipe, showList);
 	}, [recipes]);
 
 	return (
@@ -40,8 +47,7 @@ const Search = () => {
 				}}
 				validationSchema={SignupSchema}
 				onSubmit={(values) => {
-					// doSearchQuery(values.querySearch, addRecipes);
-					console.log("HOLA");
+					doSearchQuery(values.querySearch, addRecipes);
 				}}
 			>
 				{({ errors, touched }) => (
@@ -49,7 +55,7 @@ const Search = () => {
 						<label htmlFor='querySearch'>
 							What are you looking for
 						</label>
-						<Field name='querySearch' />
+						<Field name='querySearch' placeholder=' Chicken' />
 						{errors.querySearch && touched.querySearch ? (
 							<div>{errors.querySearch}</div>
 						) : null}
@@ -59,9 +65,7 @@ const Search = () => {
 					</Form>
 				)}
 			</Formik>
-			{completeRecipes !== undefined && (
-				<RecipesSearched recipes={completeRecipes} />
-			)}
+			{list && <RecipesSearched recipes={completeRecipes} />}
 		</>
 	);
 };
