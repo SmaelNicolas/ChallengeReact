@@ -9,16 +9,34 @@ export const MenuProvider = (props) => {
 		return menu;
 	};
 
-	const addMenu = (menu) => {
-		setMenu([...menu]);
+	const addRecipe = (recipe) => {
+		setMenu([...recipe]);
 	};
 
-	const totalPriceMenu = () => {
-		return menu.reduce((total, recipe) => total + recipe.price, 0);
+	const averageTotalPriceMenu = () => {
+		return menu.length > 0
+			? menu.reduce((total, recipe) => total + recipe.price, 0) /
+					menu.length +
+					1
+			: 0;
 	};
 
-	const quantityRecipes = () => {
-		return menu.length + 1;
+	const averageTotalTimePreparation = () => {
+		return menu.length > 0
+			? menu.reduce((total, recipe) => total + recipe.time, 0) /
+					(menu.length + 1)
+			: null;
+	};
+
+	const averageTotalHealthScore = () => {
+		return menu.length > 0
+			? menu.reduce((total, recipe) => total + recipe.helthScore, 0) /
+					(menu.length + 1)
+			: null;
+	};
+
+	const canAddMenu = () => {
+		return menu.length < 3;
 	};
 
 	const emptyMenu = () => {
@@ -41,9 +59,11 @@ export const MenuProvider = (props) => {
 		<MenuContext.Provider
 			value={{
 				getMenu,
-				addMenu,
-				totalPriceMenu,
-				quantityRecipes,
+				addRecipe,
+				averageTotalPriceMenu,
+				averageTotalTimePreparation,
+				averageTotalHealthScore,
+				canAddMenu,
 				emptyMenu,
 				canAddVegan,
 				canAddNoVegan,
