@@ -1,6 +1,10 @@
 .cardDish {
 	width: 18rem;
-	margin: 10px 0;
+	margin: 10px 15px;
+}
+.cardText {
+	display: flex;
+	flex-direction: column;
 }
 
 .cardDescription {
