@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const createCompleteRecipe = (recipes, fn) => {
+const createCompleteRecipe = (recipes, fn, show) => {
 	if (recipes !== undefined) {
 		let arrayRecipes = [];
 		recipes.map(async (rec) => {
@@ -11,6 +11,7 @@ const createCompleteRecipe = (recipes, fn) => {
 				.then((response) => {
 					let data = response.data;
 					let completeRecipe = {
+						id: recipes.id,
 						title: data.title,
 						img: data.image,
 						description: data.summary,
@@ -24,6 +25,7 @@ const createCompleteRecipe = (recipes, fn) => {
 				.catch((error) => console.log(error))
 				.finally(() => {
 					fn(arrayRecipes);
+					show();
 				});
 		});
 	}
