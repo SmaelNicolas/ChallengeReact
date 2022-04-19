@@ -8,9 +8,11 @@ import doSearchQuery from "../../Helpers/getSearchQuery";
 import RecipesSearched from "./RecipesSearched/RecipesSearched";
 import createCompleteRecipe from "../../Helpers/createCompleteRecipe";
 
+import info from "../../Data/DataCopiada";
+
 const Search = () => {
 	const [recipes, setRecipes] = useState(undefined);
-	const [completeRecipes, setCompleteRecipes] = useState(undefined);
+	const [completeRecipes, setCompleteRecipes] = useState(info);
 
 	const SignupSchema = Yup.object().shape({
 		querySearch: Yup.string()
@@ -27,7 +29,7 @@ const Search = () => {
 	};
 
 	useEffect(() => {
-		createCompleteRecipe(recipes, addCompleteRecipe);
+		// createCompleteRecipe(recipes, addCompleteRecipe);
 	}, [recipes]);
 
 	return (
@@ -38,7 +40,8 @@ const Search = () => {
 				}}
 				validationSchema={SignupSchema}
 				onSubmit={(values) => {
-					doSearchQuery(values.querySearch, addRecipes);
+					// doSearchQuery(values.querySearch, addRecipes);
+					console.log("HOLA");
 				}}
 			>
 				{({ errors, touched }) => (
@@ -57,7 +60,7 @@ const Search = () => {
 				)}
 			</Formik>
 			{completeRecipes !== undefined && (
-				<RecipesSearched recipes={recipes} />
+				<RecipesSearched recipes={completeRecipes} />
 			)}
 		</>
 	);
