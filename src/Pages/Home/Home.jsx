@@ -1,5 +1,6 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
+
 import CardDish from "../../Components/CardDish/CardDish";
 import Title from "../../Components/Title/Title";
 import { MenuContext } from "../../Context/MenuContext";
@@ -8,6 +9,7 @@ import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Toast } from "../../Helpers/toast";
 import "./Home.css";
 
 const Home = () => {
@@ -21,29 +23,52 @@ const Home = () => {
 	} = useContext(MenuContext);
 
 	const [deleted, setDeleted] = useState(false);
+	const [disabled, setDisabled] = useState(true);
 
 	useEffect(() => {
-		//fetch url
-		const fetchData = async () => {
-			const result = await axios(
-				"https://api.spoonacular.com/recipes/complexSearch?apiKey=0aa9b30d89cc43f3968c6c1321dee967"
-			);
-		};
-
-		// fetchData();
+		if (getMenu().length === 0) {
+			setDisabled(true);
+		} else {
+			setDisabled(false);
+		}
 	}, [deleted]);
 
 	const handleDeleted = (recipe) => {
 		deleteRecipe(recipe);
 		setDeleted(true);
+		Toast.fire({
+			icon: "error",
+			title: "Recipe deleted!",
+		});
 		setTimeout(() => {
 			setDeleted(false);
 		}, 100);
 	};
 
+	const handleDeleteMenu = () => {
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You won't be able to revert this!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire("Deleted!", "Menu has been deleted", "success");
+				emptyMenu();
+				setDeleted(true);
+				setTimeout(() => {
+					setDeleted(false);
+				}, 100);
+			}
+		});
+	};
+
 	return (
 		<div className='homeContainer'>
-			<Title title={"MENU"} />
+			<Title title={"home"} />
 			<div className='infoDisplay'>
 				<Chip
 					icon={<MonitorHeartIcon />}
@@ -78,8 +103,9 @@ const Home = () => {
 				<Button
 					variant='outlined'
 					color='error'
-					onClick={() => emptyMenu()}
+					onClick={() => handleDeleteMenu()}
 					startIcon={<DeleteIcon />}
+					disabled={disabled}
 				>
 					Delete Menu
 				</Button>
