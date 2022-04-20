@@ -48,8 +48,6 @@ const FormLogin = () => {
 				createLS(tk);
 			}, 3000);
 		} else {
-			setToken(undefined);
-			createLS(undefined);
 			setTimeout(() => {
 				Swal.fire({
 					icon: "error",
