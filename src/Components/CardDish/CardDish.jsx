@@ -1,11 +1,12 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./CardDish.css";
 
 const CardDish = ({
 	recipe,
-	key,
+	id,
 	title,
 	img,
 	desc,
@@ -21,23 +22,27 @@ const CardDish = ({
 }) => {
 	return (
 		<>
-			<Card className='cardDish' key={key}>
+			<Card className='cardDish' key={title}>
 				<Card.Title variant='top'>{title}</Card.Title>
 				<Card.Img src={img} />
 				{hs !== undefined && (
 					<div className='cardText'>
 						<p>Healt Score {hs}</p>
 						<p>Price {price.toFixed(2)}</p>
-						<p>time of preparation {time}</p>
+						<p>Time of preparation {time} minutes</p>
 					</div>
 				)}
 
 				<Card.Body>
 					<Card.Text className='cardDescription'>{desc}</Card.Text>
 
-					<Button className='cardButton' variant='info'>
+					<Link
+						className='cardButton cardButtonLink'
+						to={`/detail/${id}`}
+					>
 						Details
-					</Button>
+					</Link>
+
 					{!add && (
 						<Button
 							className='cardButton'
@@ -48,16 +53,20 @@ const CardDish = ({
 						</Button>
 					)}
 					{recipe.vegan
-						? addVegan
+						? addVegan && (
+								<Button
+									className='cardButton'
+									variant='success'
+									onClick={() => checkCanAddVegan(recipe)}
+								>
+									Add
+								</Button>
+						  )
 						: addNoVegan && (
 								<Button
 									className='cardButton'
 									variant='success'
-									onClick={() =>
-										recipe.vegan
-											? checkCanAddVegan(recipe)
-											: checkCanAddNoVegan(recipe)
-									}
+									onClick={() => checkCanAddNoVegan(recipe)}
 								>
 									Add
 								</Button>
