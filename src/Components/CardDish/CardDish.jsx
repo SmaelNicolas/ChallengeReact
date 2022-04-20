@@ -36,41 +36,45 @@ const CardDish = ({
 				<Card.Body>
 					<Card.Text className='cardDescription'>{desc}</Card.Text>
 
-					<Link
-						className='cardButton cardButtonLink'
-						to={`/detail/${id}`}
-					>
-						Details
-					</Link>
-
-					{!add && (
-						<Button
-							className='cardButton'
-							variant='danger'
-							onClick={() => deleteRecipe(recipe)}
+					<div className='cardButtonContainer'>
+						<Link
+							className='cardButton cardButtonLink'
+							to={`/detail/${id}`}
 						>
-							Delete
-						</Button>
-					)}
-					{recipe.vegan
-						? addVegan && (
-								<Button
-									className='cardButton'
-									variant='success'
-									onClick={() => checkCanAddVegan(recipe)}
-								>
-									Add
-								</Button>
-						  )
-						: addNoVegan && (
-								<Button
-									className='cardButton'
-									variant='success'
-									onClick={() => checkCanAddNoVegan(recipe)}
-								>
-									Add
-								</Button>
-						  )}
+							Details
+						</Link>
+
+						{!add && (
+							<Button
+								className='cardButton'
+								variant='danger'
+								onClick={() => deleteRecipe(recipe)}
+							>
+								Delete
+							</Button>
+						)}
+						{recipe.vegan
+							? addVegan && (
+									<Button
+										className='cardButton'
+										variant='success'
+										onClick={() => checkCanAddVegan(recipe)}
+									>
+										Add
+									</Button>
+							  )
+							: addNoVegan && (
+									<Button
+										className='cardButton'
+										variant='success'
+										onClick={() =>
+											checkCanAddNoVegan(recipe)
+										}
+									>
+										Add
+									</Button>
+							  )}
+					</div>
 				</Card.Body>
 			</Card>
 		</>
