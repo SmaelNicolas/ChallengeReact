@@ -17,21 +17,23 @@ const IsLoggedContextProvider = ({ children }) => {
 	};
 
 	const getIsLogged = () => {
-		return isLogged;
+		return JSON.parse(localStorage.getItem("logginValue"));
 	};
 
 	const getToken = () => {
-		return token;
+		return JSON.parse(localStorage.getItem("token"));
 	};
 
 	const logOut = () => {
 		setIsLogged(false);
 		setToken(undefined);
-		localStorage.setItem("token", JSON.stringify(token));
-		localStorage.setItem(
-			"logginValue",
-			JSON.stringify(token !== undefined)
-		);
+		// localStorage.setItem("token", JSON.stringify(token));
+		// localStorage.setItem(
+		// 	"logginValue",
+		// 	JSON.stringify(token !== undefined)
+		// );
+		localStorage.removeItem("logginValue");
+		localStorage.removeItem("token");
 	};
 
 	return (
