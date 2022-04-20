@@ -2,4 +2,19 @@
 	width: 500px;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
+}
+
+.errorSearch {
+	color: red;
+	font-weight: 700;
+	letter-spacing: 0.8;
+}
+.querySearch {
+	padding-left: 10px;
+	margin: 20px 0px 5px 0px;
+}
+
+.buttonSearch {
+	margin: 20px 0px 5px 0px;
 }

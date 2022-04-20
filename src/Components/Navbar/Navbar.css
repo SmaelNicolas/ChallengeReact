@@ -1,9 +1,12 @@
 .navbarContainer {
 	width: 100%;
 }
-
 .linkNavbar {
 	color: white;
 	margin: 0px 20px;
 	text-decoration: none;
+}
+
+.colored-toast.swal2-icon-info {
+	background-color: #3fc3ee !important;
 }

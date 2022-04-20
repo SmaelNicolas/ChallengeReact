@@ -5,4 +5,12 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
+	padding: 20px 0px;
+}
+
+.colored-toast.swal2-icon-success {
+	background-color: #a5dc86 !important;
+}
+.colored-toast.swal2-icon-warning {
+	background-color: #f8bb86 !important;
 }
