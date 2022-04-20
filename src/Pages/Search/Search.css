@@ -18,3 +18,9 @@
 .buttonSearch {
 	margin: 20px 0px 5px 0px;
 }
+
+@media screen and (max-width: 550px) {
+	.formSearchContainer {
+		width: 80%;
+	}
+}
