@@ -42,7 +42,7 @@ const RecipesSearched = ({ recipes }) => {
 				setTimeout(() => {
 					ToastWarning.fire({
 						icon: "warning",
-						title: ` No Vegan recipes limit reached!`,
+						title: ` No-Vegan recipes limit reached!`,
 					});
 				}, 1500);
 			}
