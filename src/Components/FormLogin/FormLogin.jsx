@@ -1,23 +1,67 @@
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useState, useContext, useEffect } from "react";
+import { Form } from "react-bootstrap";
+import LoadingButton from "@mui/lab/LoadingButton";
 import makePost from "../../Helpers/postForm";
-// import axios from "axios";
+import { IsLoggedContext } from "../../Context/IsLoggedContext";
+import Swal from "sweetalert2";
 
 const FormLogin = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPw] = useState("");
-	const [valid, setValid] = useState(undefined);
+	const [token, setToken] = useState();
+	const [disabled, setDisabled] = useState(false);
+
+	const { createLS } = useContext(IsLoggedContext);
 
 	const onSubmit = async (e) => {
+		setDisabled(true);
 		e.preventDefault();
-		setValid(
-			await makePost(
-				email,
-				password,
-				"http://challenge-react.alkemy.org/"
-			)
+		await makePost(
+			email,
+			password,
+			"http://challenge-react.alkemy.org/",
+			saveToken
 		);
 	};
+
+	const saveToken = (tk) => {
+		if (tk !== undefined) {
+			let timerInterval;
+			Swal.fire({
+				title: "Welcome !",
+				html: "Redirecting to home in <strong></strong> seconds.<br/><br/>",
+				timer: 3000,
+				didOpen: () => {
+					Swal.showLoading();
+					timerInterval = setInterval(() => {
+						Swal.getHtmlContainer().querySelector(
+							"strong"
+						).textContent = (Swal.getTimerLeft() / 1000).toFixed(0);
+					}, 100);
+				},
+				willClose: () => {
+					clearInterval(timerInterval);
+				},
+			});
+			setTimeout(() => {
+				setToken(tk);
+				createLS(tk);
+			}, 3000);
+		} else {
+			setToken(undefined);
+			createLS(undefined);
+			setTimeout(() => {
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "User / Password incorrect",
+					footer: setDisabled(false),
+				});
+			}, 1500);
+		}
+	};
+
+	useEffect(() => {}, [token]);
 
 	return (
 		<Form onSubmit={(e) => onSubmit(e)}>
@@ -48,9 +92,9 @@ const FormLogin = () => {
 				/>
 			</Form.Group>
 
-			<Button variant='primary' type='submit'>
-				Submit
-			</Button>
+			<LoadingButton loading={disabled} variant='outlined' type='submit'>
+				Log In
+			</LoadingButton>
 		</Form>
 	);
 };

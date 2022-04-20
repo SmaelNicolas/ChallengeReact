@@ -7,15 +7,24 @@ import "./Search.css";
 import doSearchQuery from "../../Helpers/getSearchQuery";
 import RecipesSearched from "./RecipesSearched/RecipesSearched";
 import createCompleteRecipe from "../../Helpers/createCompleteRecipe";
+import Loading from "../../Components/Loading/Loading";
 
-import info from "../../Data/DataCopiada";
+// import info from "../../Data/DataCopiada";
+import {
+	getListRecipesSearched,
+	updateListRecipesSearched,
+} from "../../Data/recipesSearched";
+import Title from "../../Components/Title/Title";
 
 const Search = () => {
 	const [recipes, setRecipes] = useState(undefined);
-	const [list, setList] = useState(true);
+	const [list, setList] = useState(false);
+	const [loadingBoolean, setLoadingBoolean] = useState(true);
 
 	// const [completeRecipes, setCompleteRecipes] = useState([]);
-	const [completeRecipes, setCompleteRecipes] = useState(info);
+	const [completeRecipes, setCompleteRecipes] = useState(
+		getListRecipesSearched()
+	);
 
 	const SignupSchema = Yup.object().shape({
 		querySearch: Yup.string()
@@ -27,8 +36,10 @@ const Search = () => {
 	const addRecipes = (value) => {
 		setRecipes(value);
 	};
-	const addCompleteRecipe = async (value) => {
-		await setCompleteRecipes(value);
+
+	const addCompleteRecipe = (value) => {
+		updateListRecipesSearched(value);
+		setCompleteRecipes(value);
 	};
 
 	const showList = () => {
@@ -36,11 +47,20 @@ const Search = () => {
 	};
 
 	useEffect(() => {
-		createCompleteRecipe(recipes, addCompleteRecipe, showList);
-	}, [recipes]);
+		if (recipes !== undefined) {
+			createCompleteRecipe(recipes, addCompleteRecipe, showList);
+			updateListRecipesSearched(recipes);
+			setLoadingBoolean(true);
+		}
+
+		setTimeout(() => {
+			setLoadingBoolean(false);
+		}, 2000);
+	}, [recipes, list]);
 
 	return (
 		<>
+			<Title title={"search"}></Title>
 			<Formik
 				initialValues={{
 					querySearch: "",
@@ -55,17 +75,32 @@ const Search = () => {
 						<label htmlFor='querySearch'>
 							What are you looking for
 						</label>
-						<Field name='querySearch' placeholder=' Chicken' />
+						<Field
+							name='querySearch'
+							placeholder='ex chicken'
+							className='querySearch'
+						/>
 						{errors.querySearch && touched.querySearch ? (
-							<div>{errors.querySearch}</div>
+							<div className='errorSearch'>
+								{errors.querySearch}
+							</div>
 						) : null}
-						<Button variant='success' type='submit'>
+						<Button
+							className='buttonSearch'
+							variant='success'
+							type='submit'
+						>
 							Submit
 						</Button>
 					</Form>
 				)}
 			</Formik>
-			{list && <RecipesSearched recipes={completeRecipes} />}
+
+			{loadingBoolean ? (
+				<Loading />
+			) : (
+				<RecipesSearched recipes={completeRecipes} />
+			)}
 		</>
 	);
 };

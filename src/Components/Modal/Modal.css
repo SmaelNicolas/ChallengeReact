@@ -1,0 +1,23 @@
+.modalContainer {
+	width: 100%;
+	min-height: 100%;
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.25);
+	z-index: 10;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.modalMessage {
+	width: 325px;
+	height: 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	background-color: #0069d9;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+}
