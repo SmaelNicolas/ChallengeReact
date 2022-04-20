@@ -26,7 +26,7 @@ export const ToastWarning = Swal.mixin({
 
 export const ToastLogOut = Swal.mixin({
 	toast: true,
-	position: "top-rigth",
+	position: "center",
 	iconColor: "white",
 	customClass: {
 		popup: "colored-toast",
