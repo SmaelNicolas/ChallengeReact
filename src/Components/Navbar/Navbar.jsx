@@ -24,9 +24,7 @@ const NavbarSection = () => {
 	return (
 		<Navbar bg='primary' expand='sm' fixed='top' className='navBarCustom'>
 			<Container>
-				<Navbar.Brand href='#home'>
-					<Image src={alkemyImg} alt='logo' />
-				</Navbar.Brand>
+				<Image src={alkemyImg} alt='logo' />
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
 					<Nav className='me-auto'>
