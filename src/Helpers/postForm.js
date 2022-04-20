@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const makePost = async (email, password, url) => {
+const makePost = async (email, password, url, fn) => {
 	let body = new FormData();
-	let result = false;
 
 	body.append("email", email);
 	body.append("password", password);
@@ -14,13 +13,11 @@ const makePost = async (email, password, url) => {
 		headers: { "Content-Type": "multipart/form-data" },
 	})
 		.then((response) => {
-			response.request.statusText === "OK"
-				? (result = true)
-				: (result = false);
+			fn(response.data.token);
 		})
-		.catch(function () {});
-
-	return result;
+		.catch((error) => {
+			fn(undefined);
+		});
 };
 
 export default makePost;
