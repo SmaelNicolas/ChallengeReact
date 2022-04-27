@@ -34,7 +34,10 @@ const CardDish = ({
 				)}
 
 				<Card.Body>
-					<Card.Text className='cardDescription'>{desc}</Card.Text>
+					<Card.Text
+						className='cardDescription'
+						dangerouslySetInnerHTML={{ __html: desc }}
+					></Card.Text>
 
 					<div className='cardButtonContainer'>
 						<Link
