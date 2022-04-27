@@ -27,11 +27,6 @@ const IsLoggedContextProvider = ({ children }) => {
 	const logOut = () => {
 		setIsLogged(false);
 		setToken(undefined);
-		// localStorage.setItem("token", JSON.stringify(token));
-		// localStorage.setItem(
-		// 	"logginValue",
-		// 	JSON.stringify(token !== undefined)
-		// );
 		localStorage.removeItem("logginValue");
 		localStorage.removeItem("token");
 	};
