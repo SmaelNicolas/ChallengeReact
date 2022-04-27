@@ -9,7 +9,6 @@ import RecipesSearched from "./RecipesSearched/RecipesSearched";
 import createCompleteRecipe from "../../Helpers/createCompleteRecipe";
 import Loading from "../../Components/Loading/Loading";
 
-// import info from "../../Data/DataCopiada";
 import {
 	getListRecipesSearched,
 	updateListRecipesSearched,
