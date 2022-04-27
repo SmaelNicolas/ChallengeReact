@@ -14,13 +14,13 @@ import {
 	updateListRecipesSearched,
 } from "../../Data/recipesSearched";
 import Title from "../../Components/Title/Title";
+import { ToastWarning } from "../../Helpers/toast";
 
 const Search = () => {
 	const [recipes, setRecipes] = useState(undefined);
 	const [list, setList] = useState(false);
-	const [loadingBoolean, setLoadingBoolean] = useState(true);
+	const [loadingBoolean, setLoadingBoolean] = useState(recipes !== undefined);
 
-	// const [completeRecipes, setCompleteRecipes] = useState([]);
 	const [completeRecipes, setCompleteRecipes] = useState(
 		getListRecipesSearched()
 	);
@@ -33,7 +33,14 @@ const Search = () => {
 	});
 
 	const addRecipes = (value) => {
-		setRecipes(value);
+		if (value === null) {
+			ToastWarning.fire({
+				icon: "warning",
+				title: ` MAXIMUM API CALLS REACHED`,
+			});
+		} else {
+			setRecipes(value);
+		}
 	};
 
 	const addCompleteRecipe = (value) => {
