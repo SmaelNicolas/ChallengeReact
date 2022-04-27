@@ -23,7 +23,6 @@ const createCompleteRecipe = async (recipes, fn, show) => {
 					};
 					arrayRecipes.push(completeRecipe);
 				})
-				// .catch((error) => )
 				.finally(() => {
 					console.log(arrayRecipes);
 					fn(arrayRecipes);
