@@ -9,7 +9,7 @@ const doSearchQuery = async (value, fn) => {
 		.then((response) => {
 			fn(response.data);
 		})
-		.catch(fn(null));
+		.catch((error) => fn(null));
 	return result;
 };
 
