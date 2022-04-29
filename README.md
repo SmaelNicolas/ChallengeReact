@@ -2,8 +2,6 @@
 
 ## React 🚀
 
-## LIVE : https://challenge-react-alkemy.netlify.app/
-
 ### Objetivo
 
 Desarrollar una aplicación para crear una carta de opciones de menús para un hotel que consumirá una
