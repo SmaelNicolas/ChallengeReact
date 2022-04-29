@@ -2,6 +2,12 @@
 
 ## React 🚀
 
+## LIVE : https://challenge-react-alkemy.netlify.app/
+
+###### En chrome permitir contenido no seguro para poder realizar el llamado desde una url https a la api http
+
+###### Click derecho en el candado de la url > Configuracion del sitio > Contenido no seguro > Permitir
+
 ### Objetivo
 
 Desarrollar una aplicación para crear una carta de opciones de menús para un hotel que consumirá una
