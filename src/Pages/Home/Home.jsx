@@ -113,6 +113,7 @@ const Home = () => {
 			<div className='recipesInMenu'>
 				{getMenu().map((recipe) => (
 					<CardDish
+						id={recipe.id}
 						recipe={recipe}
 						key={recipe.id}
 						title={recipe.title}
